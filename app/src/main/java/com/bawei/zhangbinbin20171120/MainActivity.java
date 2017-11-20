@@ -15,9 +15,11 @@ import android.widget.Toast;
 import com.bawei.zhangbinbin20171120.bean.MyBean;
 import com.bawei.zhangbinbin20171120.presenter.PlayPresenter;
 import com.bawei.zhangbinbin20171120.utils.Api;
+import com.bawei.zhangbinbin20171120.utils.ZoomOutPageTransformer;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements PlayContrast.IVie
     ViewPager vp;
     @BindView(R.id.btn_huan)
     Button btnHuan;
+    private PlayPresenter playPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +39,9 @@ public class MainActivity extends AppCompatActivity implements PlayContrast.IVie
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         //http://api.svipmovie.com/front/columns/getVideoList.do?catalogId=402834815584e463015584e539330016&pnum=33
-        PlayPresenter playPresenter = new PlayPresenter(this);
-        playPresenter.LoadData(Api.HOST, Api.catalogId, 50);
+        playPresenter = new PlayPresenter(this);
+        playPresenter.LoadData(Api.HOST, Api.catalogId, 1);
+        vp.setPageTransformer(true, new ZoomOutPageTransformer());
     }
 
     @Override
@@ -84,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements PlayContrast.IVie
 
     @OnClick(R.id.btn_huan)
     public void onViewClicked() {
+        playPresenter.LoadData(Api.HOST, Api.catalogId,getpage());
     }
 
    /* private int getNextPage() {
@@ -95,4 +100,13 @@ public class MainActivity extends AppCompatActivity implements PlayContrast.IVie
     public static int getRandomNumber(int min, int max) {
         return new Random().nextInt(max) % (max - min + 1) + min;
     }*/
+   private int getpage(){
+
+       int max=108;
+       int min=1;
+       Random random = new Random();
+
+       int s = random.nextInt(max)%(max-min+1) + min;
+      return s;
+   }
 }
