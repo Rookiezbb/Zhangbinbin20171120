@@ -55,19 +55,19 @@ public class MainActivity extends AppCompatActivity implements PlayContrast.IVie
 
             @Override
             public boolean isViewFromObject(View view, Object object) {
-                return view==object;
+                return view == object;
             }
 
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
                 MyBean.RetBean.ListBean lb = list.get(position);
-                View v = View.inflate(MainActivity.this,R.layout.item,null);
+                View v = View.inflate(MainActivity.this, R.layout.item, null);
                 ImageView img = (ImageView) v.findViewById(R.id.img);
                 TextView title = (TextView) v.findViewById(R.id.tv_title);
                 TextView tvt = (TextView) v.findViewById(R.id.tv_text);
                 title.setText(lb.getTitle());
                 tvt.setText(lb.getDescription());
-                ImageLoader.getInstance().displayImage(lb.getPic(),img);
+                ImageLoader.getInstance().displayImage(lb.getPic(), img);
                 container.addView(v);
                 return v;
             }
@@ -88,25 +88,25 @@ public class MainActivity extends AppCompatActivity implements PlayContrast.IVie
 
     @OnClick(R.id.btn_huan)
     public void onViewClicked() {
-        playPresenter.LoadData(Api.HOST, Api.catalogId,getpage());
+        playPresenter.LoadData(Api.HOST, Api.catalogId, getpage());
     }
 
-   /* private int getNextPage() {
-        if (SystemUtils.isNetworkConnected()) {
-            page = StringUtils.getRandomNumber(1, 108);
-        }
-        return page;
+    /* private int getNextPage() {
+         if (SystemUtils.isNetworkConnected()) {
+             page = StringUtils.getRandomNumber(1, 108);
+         }
+         return page;
+     }
+     public static int getRandomNumber(int min, int max) {
+         return new Random().nextInt(max) % (max - min + 1) + min;
+     }*/
+    private int getpage() {
+
+        int max = 108;
+        int min = 1;
+        Random random = new Random();
+
+        int s = random.nextInt(max) % (max - min + 1) + min;
+        return s;
     }
-    public static int getRandomNumber(int min, int max) {
-        return new Random().nextInt(max) % (max - min + 1) + min;
-    }*/
-   private int getpage(){
-
-       int max=108;
-       int min=1;
-       Random random = new Random();
-
-       int s = random.nextInt(max)%(max-min+1) + min;
-      return s;
-   }
 }
